@@ -35,9 +35,8 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'image' => ['image'],
         ]);
-
         if ($request->image) {
-            $path = $request->file('image')->store('public/uploads');
+            $path = $request->file('image')->store('uploads', 'public');
         }
 
         $user = User::create([
