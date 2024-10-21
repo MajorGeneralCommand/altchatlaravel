@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Channel;
 use App\Models\Chat;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,9 +17,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/public', function () {
-    $chats = Chat::where('channel_id', 1)->get();
-    return view('public', ['chats' => $chats]);
+    $channel = 1;
+    $chats = Chat::where('channel_id', $channel)->get();
+    return view('public', ['chats' => $chats, 'channel' => $channel]);
 })->middleware(['auth', 'verified'])->name('public');
+
+Route::post('/chat/store', [ChatController::class, 'store'])->name('chat.store');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
