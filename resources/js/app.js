@@ -1,7 +1,14 @@
-import './bootstrap';
+import "./bootstrap"
+import Alpine from "alpinejs"
+import ChatMenuHandler from "./components/chatMenuHandler"
 
-import Alpine from 'alpinejs';
+window.Alpine = Alpine
 
-window.Alpine = Alpine;
+Alpine.start()
 
-Alpine.start();
+document.addEventListener("DOMContentLoaded", function () {
+  var chatContainer = document.querySelector(".public__scroller")
+  chatContainer.scrollTop = chatContainer.scrollHeight
+})
+
+let ChatHandler = new ChatMenuHandler()
